@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes</title>
+    <link rel="stylesheet" href="theme.css" />
+</head>
+<body>
+    <br>
+    <br>
+    <div class="container" id="app">
+        <div class="card">
+            <h1>{{ title }} &#128171;</h1>
+            <h2>{{ comp }} : {{ res }} || {{ deleted }} : {{ resd }}</h2>
+            <br>
+            <div class="form-control">
+                <input 
+                type="text" 
+                :placeholder="placeholderString"
+                :value="inputValue"
+                @input="inputChangeHandler"
+                @keypress.enter="addNewNote"
+                />
+            </div>
+            <button class="btn" v-on:click="addNewNote">Добавить</button>
+            <button class="btn dng" v-on:click="deleteAllNotes">Удалить Все</button> <!-- Измененный вызов метода -->
+            <hr />
+            <ul class="list" v-if="notes.length !== 0">
+                <li class="list-item" v-for="(note, idx) in notes" :key="idx">
+                    ({{ idx + 1 }}) {{ note }}
+                    <div class="list-btn">
+                        <button class="btn comp" v-on:click="completeNote(idx)">Выполнено</button>
+                        <button class="btn danger" v-on:click="removeNote(idx)">Удалить</button>
+                    </div>
+                </li>
+            </ul>
+            <div v-else>Заметок пока нет</div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
